@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<book>
+	<info>
+		<title>불편한 편의점</title>
+		<author>김호연</author>
+		<price>12600원</price>
+		<date>2021.04.20</date>
+	</info>
+	<info>
+		<title>아버지의 해방일지</title>
+		<author>정지아</author>
+		<price>13500원</price>
+		<date>2022.09.02</date>
+	</info>
+	<info>
+		<title>이토록 평범한 미래</title>
+		<author>김연수</author>
+		<price>12600원</price>
+		<date>2022.10.07</date>
+	</info>
+	<info>
+		<title>하얼빈</title>
+		<author>김훈</author>
+		<price>14400원</price>
+		<date>2022.08.03</date>
+	</info>
+</book>

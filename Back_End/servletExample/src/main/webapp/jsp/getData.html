@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>Get Data - GetData.html</title>
+
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
+		
+		<script type=text/javascript>
+		$(function(){
+			$("input[type='button']").click(function(){
+				if($("#name").val().replace(/\s/g,"")==""){
+					alert("이름을 입력해주세요.")
+					$("#name").val("");
+					$("#name").focus();
+					return;
+				}
+				if($("#address").val().replace(/\s/g,"")==""){
+					alert("주소를 입력해 주세요.")
+					$("#address").val("");
+					$("#address").focus();
+					return;
+				}
+				//폼에 속성을 추가하는 작업 -1
+				/*
+				$("#dataForm").attr("method", "post");
+				$("#dataForm").attr("action", "/servletExample/getData");
+				$("#dataForm").submit();
+				*/
+				//폼에 속성을 추가하는 작업 -2
+				/*
+				$("#dataForm").attr("method", "post").attr("action", /servletExample/getData);
+				$("#dataForm").submit();
+				*/
+				
+				//형식 : $("선택자").attr({"속성" : "값", "속성" : "값"});
+				$("#dataForm").attr({
+					"method" : "post",
+					"action" : "/servletExample/getData"
+				});
+				$("#dataForm").submit();
+				
+				
+			});
+		});
+		</script>
+	</head>
+	<body>
+		<form name="dataForm" id="dataForm">
+			<p> [코딩시 요구사항] <br />
+				getData.html --> 요청 uri : /servletExample/getData <br />
+				method : post방식 / 입력 양식의 이름 및 아이디 (순서대로) : dataForm, name, address <br />
+				서블릿 name : GetData 생성 <br />
+				<br />
+			</p>
+			<label>이 름 : </label> <input id="name" name="name" placeholder="이름 입력"> <br />
+			<label>주 소 : </label> <input id="address" name="address" placeholder="주소 입력"> <br />
+			<input type="button" value="전송"> &nbsp;&nbsp;
+			<input type="reset" value="취소">
+		</form>
+	</body>
+</html>

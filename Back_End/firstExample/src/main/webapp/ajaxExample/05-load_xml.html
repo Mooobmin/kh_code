@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>xml 책정보출력</title>
+
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<!-- 공통 CSS -->
+		<!-- <link rel="stylesheet" type="text/css" href="../css/reset.css"/> -->
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		
+		<!-- jQuery Framework 참조하기 -->
+		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
+		
+		<script type="text/javascript">
+			$(function(){
+				/*$.ajax({
+					url : "/firstExample/ajax/xml/book.xml",
+					type : "get",
+					dataType : "xml",
+					cache : false,
+					timeout : 30000,
+					success : function(data){
+						$(data).find("info").each(function(){
+							let no = $(this).index()+1;
+							let title = $(this).find("title").text();
+							let author = $(this).find("author").text();
+							let price = $(this).find("price").text();
+							let date = $(this).find("date").text();
+							
+ 							let div = $("<div>");
+							let p1 = $("<p>").html(title);
+							let p2 = $("<p>").html(author);
+							let p3 = $("<p>").html(price);
+							let p4 = $("<p>").html(date);
+							
+							div.append(p1).append(p2).append(p3).append(p4);
+							
+							$("#result").append(div);
+							$("#result").append("<br />");
+							
+							let txt = $("<li>").html(no + " - " + title + ", " + author + ", " + price);
+							$("#view").append(txt);
+						});
+					},
+					error : function(xhr, textStatus, errorThrown){
+						$("#result").html(textStatus + " (HTTP-" + xhr.statue + " / " + errorThrown + ")");
+					}
+				}); */
+				
+				//get() 함수로 접근
+ 				$.get('/firstExample/ajax/xml/book.xml', function(data){
+					$(data).find('info').each(function(){
+						let title = $(this).find("title").text();
+						let author = $(this).find("author").text();
+						let price = $(this).find("price").text();
+						let date = $(this).find("date").text();
+						
+						let txt = $("<li>").html(title +  ", " + author + ", " + price + ", " + date);
+						$('#view').append(txt);
+					});
+				}).fail(function(xhr, status, error){
+					$("#result").html("오류가 발생했습니다.<br />").append("오류명 : " + error + "<br />").append("상태 : " + status);
+				});
+			});		
+		</script>
+		
+	</head>
+	<body>
+		<h1 class="title">$.ajax() 함수를 사용한 책정보 XML데이터 읽기</h1>
+		<div class="console" id= "result">
+			<ul id="view"></ul>
+		</div>	
+	</body>
+</html>

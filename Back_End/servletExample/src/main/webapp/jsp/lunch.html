@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>select 태그와 post</title>
+
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#btn").click(function(){
+					if($("select[name='lunch'] > option:selected").index() < 0){
+						alert("점심 메뉴를 선택해 주세요.");
+						return;
+					} else{
+						//if($("select[name='lunch'] > option:selected").size() < 2)
+						//jQuety 3.0 이상 버전에서는 size()가 삭제되어 length로 대신하여 사용한다.
+						if($("select[name='lunch'] > option:selected").length < 2){
+							alert("두 개 이상의 점심 메뉴를 선택해 주세요.");
+							return;
+						}
+						// $(선택자).attr({"속성명" : "값", "속성명" : "값"})
+						//<태그명 속성명 = "값" />으로 추가
+						$("#form").attr({
+							"method" : "post",
+							"action":"/servletExample/todayMenu"
+						});
+						$("#form").submit();
+					}
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form name="form" id="form">
+			<p> [코딩시 요구사항] <br />
+				lunch.html --> 요청 uri : /servletExample/todayMenu <br />
+				method : post방식 / 입력 양식의 이름 : lunch
+				서블릿 name : TodayMenu 생성 <br />
+				<br />
+			</p>
+			<h1>오늘 점심은 무엇을 먹을까? (2개이상 선택)</h1>
+			<select name="lunch" size="4" multiple>
+				<option value="떡볶이">떡볶이</option>
+				<option value="버섯덮밥">버섯덮밥</option>
+				<option value="칼국수">칼국수</option>
+				<option value="비빔밥">비빔밥</option>
+				<option value="제육볶음">제육볶음</option>
+				<option value="김치찌개">김치찌개</option>
+				<option value="부대찌개">부대찌개</option>
+			</select> <br />
+			<input type="button" value="전송" id="btn">
+		</form>
+	</body>
+</html>

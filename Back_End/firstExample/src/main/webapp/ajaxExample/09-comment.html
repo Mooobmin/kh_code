@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>Insert title here</title>
+
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<!-- 공통 CSS -->
+		<link rel="stylesheet" type="text/css" href="../css/reset.css"/>
+		<link rel="stylesheet" type="text/css" href="../css/common.css"/>
+		<style>
+			
+			
+		</style>
+		
+		<!-- jQuery Framework 참조하기 -->
+		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
+		
+		<!-- 사용자 스크립트 블록 -->
+		<script type="text/javascript">
+			$(function(){
+				$.ajax({
+					url : "/firstExample/ajax/comment/comment_list.json",
+					type : "get",
+					dataType : "json",
+					cache : false,
+					success : function(json){
+						let comment = json.comments.comment;
+						
+						for(let i = 0; i < comment.length; i++){
+							let name = comment[i].name;
+							let date = comment[i].date;
+							let content = comment[i].content;
+							
+							let text = $("<div>").html("<br />" + name + " / " + date + "<input type='button' value='삭제하기' class='delete' name='delete'>" +"<br />" + content);
+							$("#comment_list").append(text);
+						}
+					}, error : function(xhr, textStatus, errorThrown){
+						$("#comment_list").html(textStatus + " (HTTP-" + xhr.statue + " / " + errorThrown + ")");
+						}
+				});
+
+				
+				$("#save").click(function(){
+					let date = new Date();
+					console.log(date.toISOString());
+					let dateTime = date.toISOString().replace("T", " ").substr(0, 19);
+					/* const year = date.getFullYear();
+					const month = ('0' + (date.getMonth() + 1)).slice(-2);
+					const day = ('0' + date.getDate()).slice(-2);
+					const hours = ('0' + date.getHours()).slice(-2);
+					const minutes = ('0' + date.getMinutes()).slice(-2);
+					const seconds = ('0' + date.getSeconds()).slice(-2);
+					const dateTime = year + '-' + month + '-' + day + " " + hours + ':' + minutes + ':' + seconds; */
+					
+					let name = $("#user").val();
+					let content = $("#comment").val();
+					$("#comment_list").append("<div>" + "<br />" + name + " / " + dateTime +"<input type='button' value='삭제하기' class='delete' name='delete'>" +"<br />" + content);
+					
+					
+				});
+				
+				$(document).on("click", ".delete", function(){
+					let confirmflag = confirm("댓글을 삭제하시겠습니까?");
+					if(confirmflag){$(this).parent().remove();}
+			});
+		});			
+		</script>
+	</head>
+	<body>
+		<h1 class="title">jQuery Comment</h1>
+		<div class="exec">
+			<label>작성자</label>
+			<input type="text" id="user" name="user"/>
+			<input type="button" value="저장하기" id="save" name="save"/><br/>
+			<label>덧글 내용</label>
+			<textarea cols="50" rows="8" style="resize: none;" id="comment" name="comment"></textarea>
+		</div>
+		<div id="comment_list"></div>
+		
+	</body>
+</html>

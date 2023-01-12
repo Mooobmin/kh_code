@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>Insert title here</title>
+
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
+		<script type="text/javascript" src="../js/common.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#btnBook").click(function(){
+/* 					if($("#title").val().replace(/\s/g,"")==""){
+						alert("책제목을 입력해주세요.")
+						return;
+					}
+					if($("#author").val().replace(/\s/g,"")==""){
+						alert("책저자를 입력해주세요.")
+						return;
+					}
+					if($("#publisher").val().replace(/\s/g,"")==""){
+						alert("출판사를 입력해주세요.")
+						return;
+					}
+					$("#bookForm").attr({
+				 		"method" : "post",
+				 		"action" : "/servletExample/bookReg"
+				 		});
+				 	$("#bookForm").submit(); */
+				 	//위 내용은 common.js에 있는 chkData 함수를 사용하여 아래 코드와 같이 구현
+				 	
+				 	if(!chkData("#title","책제목을")) return;
+				 	else if(!chkData("#author","저자를")) return;
+				 	else if(!chkData("#publisher","출판사명을")) return;
+				 	else{
+				 		$("#bookForm").attr({
+				 			"action" : "/servletExample/bookReg",
+				 			"method" : "post"
+				 		});
+				 		$("#bookForm").submit();
+				 	}				 									
+				});					
+			});		
+		</script>
+	</head>
+	<body>
+	<!--
+	[코딩시 참고사항]
+		bookInput.html -> 요청 url : /servletExample/bookReg
+		/servletExample/bookReg -> forward url : /servletExample/bookOutput
+		
+		- book input.html 요구사항
+		method : post방식 / 각각 입력 양식의 이름 및 아이디(순서대로) : bookForm, title, author, publisher
+		각 텍스트 필드의 값은 반드시 입력되어야 한다. (/\s/g)
+		
+		-BookInputServlet 요구사항
+		서블릿 name : BookInputServlet 생성
+		매핑 주소 : /bookReg
+		
+		서블릿 내 요구사항 : 책 정보를 저장할 수 있는 BookVO 클래스 생성하여 값 대입
+		book이라는 이름으로 속성 추가하여, bookOutput로 포워드
+		
+		-BookOutPutServlet 요구사항
+		서블릿 name : BookOutputServlet 생성
+		매핑 주소 : /bookOutput
+		서블릿 내 요구사항 : book이라는 이름의 속성에 접근하여 책정보를 출력.
+	  -->
+		<form name="bookForm" id="bookForm" method="post">
+			<label>책제목 : </label>
+			<input type="text" name="title" id="title"/> <br />
+			<label>책저자 : </label>
+			<input type="text" name="author" id="author"/> <br />
+			<label>출판사 : </label>
+			<input type="text" name="publisher" id="publisher"/> <br />
+			<input type="button" value="등록" id="btnBook"/>
+		</form>
+	</body>
+</html>

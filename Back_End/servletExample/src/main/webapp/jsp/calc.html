@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<title>간단한 연산 프로그램</title>
+
+		
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+			hr{width:400px; margin-left:0px;}
+			input[type="text"]{width:100px;}
+		</style>
+		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$("#btnCalc").click(function(){
+					let numberPattern = /^\d+$/g;
+ 					if($("#num1").val().replace(/\s/g,"")==""){
+ 						alert("숫자를 입력해 주세요");
+ 						$("#num1").val("");
+ 						$("#num1").focus();
+ 						return;
+ 					}
+ 					else{
+ 						if($("#num1").val().search(numberPattern) < 0){
+ 							alert("문자를 입력할 수 없습니다.");
+ 							$("#num1").val("");
+ 							$("#num1").focus();
+ 							return;
+ 						}	
+ 					}
+ 					if($("#num2").val().replace(/\s/g,"")==""){
+ 						alert("숫자를 입력해 주세요");
+ 						$("#num2").val("");
+ 						$("#num2").focus();
+ 						return;
+ 					}
+ 					else{
+ 						if($("#num2").val().search(numberPattern) < 0){
+ 							alert("문자를 입력할 수 없습니다.");
+ 							$("#num2").val("");
+ 							$("#num2").focus();
+ 							return;
+ 						}	
+ 					}
+ 					//속성 추가 방식(일반)
+/*  				$("#frm").attr("method", "post");
+ 					$("#frm").attr("action", "/servletExample/calcServlet");
+*/
+ 					
+ 					//속성 추가 방식(JSON방식)
+/*  					$("#frm").attr({
+ 						"method" : "post",
+ 						"action" : "/servletExample/calcServlet"
+ 					});
+ 					$("#frm").submit();
+*/					
+					// 폼전체 데이터 전송
+					// data : $("#frm").serialize(),
+					// 함수를 사용하지 않을 경우
+					// data : "num1="+$("#num1").val()+"&operator="+$("#operator").val()+"&num2="+$("#num2").val(),
+					// data : "num1=1&operator=+&num2=3" //서버측 전달
+					$.ajax({
+						url : "/servletExample/calcServlet2", //요청 url
+						type : "post",						  //전송방식 (get/post)
+						data : $("#frm").serialize(),		  //서버에 전달할 파라미터(serialize() : 폼전체 데이터 전송하는 메서드)
+						dataType : "text",					  //응답받는 문서 타입
+						success : function(data){
+							$("#result").val(data);
+						},
+						error : function(xhr, textStatus, errorThrown){
+							alert(textStatus + " (HTTP -" + xhr.status + " / " + errorThrown);
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+		<form name="frm" id="frm">
+			<p> [코딩시 요구사항] <br />
+			calc.html --> 요청 uri : /servletExample/calcServlet <br />
+			method : post방식 / 각각 입력 양식의 이름 및 아이디 (순서대로) : frm(폼태그), num1(숫자1), operator(select), num2(숫자2)<br />
+			각 텍스트 필드의 값은 반드시 숫자만 입력되도록 유효성 체크
+			서블릿 name : CalcServlet 생성 <br />
+			서블릿 내 요구사항 : +, -, *, / 연산의 결과를 반환하는 메서드(calc)생성.
+			<br />
+			</p>
+			<h2>계산기</h2> <br />
+			<hr>
+			<input type="text" name="num1" id="num1"/>
+			<select name="operator" id="operator">
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+			</select>
+			<input type="text" name="num2" id="num2"/>
+			<label>=</label> 
+			<input type="text" name="result" id="result" readonly="readonly"/>
+			<input type="button" value="계산하기" id="btnCalc">
+			<input type="reset" value="다시입력">
+			
+		</form>
+	</body>
+</html>

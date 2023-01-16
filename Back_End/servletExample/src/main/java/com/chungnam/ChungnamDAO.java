@@ -130,12 +130,39 @@ public class ChungnamDAO {
 	}
 	
 	/******************************************
-	 * chungnamInsert() 메서드 : chungnam 테이블의 레코드 삭제 메서드
+	 * chungnamDelete() 메서드 : chungnam 테이블의 레코드 삭제 메서드
 	 * @param ChungnamVO
 	 * @return int 자료형 리턴.
 	 * 성공 1, 실패 0
 	 *****************************************/
 	public int chungnamDelete(ChungnamVO vo) {
-		return 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("delete from chungnam");
+		sql.append(" where mng_no = ?");
+		
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(sql.toString());
+			
+			pstmt.setInt(1, vo.getMng_no());
+			
+			result = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			e.printStackTrace();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch(SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
 	}
 }

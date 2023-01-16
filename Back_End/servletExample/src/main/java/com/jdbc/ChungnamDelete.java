@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.chungnam.ChungnamDAO;
+import com.chungnam.ChungnamVO;
+
 /**
  * Servlet implementation class ChungnamDelete
  */
@@ -14,12 +17,22 @@ import javax.servlet.http.HttpServletResponse;
 public class ChungnamDelete extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+		
+		ChungnamDAO dao = ChungnamDAO.getInstance();
+		
+		ChungnamVO vo = new ChungnamVO();
+		vo.setMng_no(Integer.parseInt(request.getParameter("mng_no")));
+		
+		int result = dao.chungnamDelete(vo);
+		
+		if(result == 1) {
+			response.sendRedirect("/servletExample/select");
+		} else {
+			
+		}
 	}
 
 }

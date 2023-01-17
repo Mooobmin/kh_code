@@ -23,6 +23,11 @@
 		<script type="text/javascript" src="../js/jquery-3.6.2.min.js"></script>
 	</head>
 	<body>
-		
+		<div>
+			<%= (String)request.getAttribute("message") %>
+		</div>
+		<div>
+			<a href="/scriptTag/list">리스트로 이동</a>
+		</div>
 	</body>
 </html>

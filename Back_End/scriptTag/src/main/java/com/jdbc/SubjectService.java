@@ -1,33 +1,29 @@
 package com.jdbc;
 
-import java.io.IOException;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 
-/**
- * Servlet implementation class SubjectService
- */
-@WebServlet("/service")
-public class SubjectService extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+import com.subject.SubjectDAO;
+import com.subject.SubjectVO;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+public class SubjectService {
+	private static SubjectService instance = null;
+	
+	private SubjectService() {}
+	
+	public static SubjectService getInstance() {
+		if(instance == null) {
+			instance = new SubjectService(); 
+		}
+		return instance;
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+	
+	public ArrayList<SubjectVO> subjectList(SubjectVO vo){
+		ArrayList<SubjectVO> list = new SubjectDAO().getSubjectTotal(vo);
+		return list;
 	}
-
+	
+	public boolean subjectInsert(SubjectVO vo) {
+		boolean result = new SubjectDAO().subjectInsert(vo);
+		return result;
+	}
 }

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		
+		<title>예제 request.html</title>
+
+		<!-- 모바일 웹 페이지 설정 -->
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<!-- 모바일 웹 페이지 설정 끝 -->
+		
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+		<style type="text/css">
+			table{font:9pt/1em "굴림"; width:380px; height:200px; 
+				  border-collapse:collapse}
+			th,td{background-color:#F7F7F7; border: 1px solid #000000; 
+				  padding:6px;} 
+			td.t1{width:100px; text-align:center; background-color:#F7F7F7; }
+			td.t2{background-color:#FFFFFF;}
+			td.t3{text-align:center; background-color:#F7F7F7;}
+		</style>
+		
+		<script type="text/javascript" src="../js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				let hship = ["일반고","특목고","특성화고"];
+				let ship = ["정보통신학과","국문학과","기계공학과","회계학과","전기전자학과","경영학과","사회복지학과"];
+				
+				$("input[name='scholarship']").click(function(){ 
+					$("#major").empty(); //학과(전공) select 초기화 작업.
+					if($(this).val()=="고졸"){ // 이벤트 발생한 요소의 값(val())이 "고졸"과 같다면
+						for(i=0; i<hship.length;i++){
+							option = $("<option>"); // option 태그 생성
+							option.attr("value", hship[i]); // option 태그에 속성 추가
+							option.append(hship[i]);  // <option value="일반고" >일반고</option>
+							$("#major").append(option); 
+						}
+					}else{
+						for(i=0; i<ship.length;i++){
+							option = $("<option>");
+							option.attr("value",ship[i]);
+							option.append(ship[i]);
+							if(i==1){
+								option.prop("selected","true");
+							}
+							$("#major").append(option);
+						}
+					}
+				}) ; //click 이벤트 종료
+				
+				$("input[name='scholarship']:eq(0)").prop("checked","true");
+				$("input[name='scholarship']:eq(0)").click();
+				
+				$("#sendBtn").click(function(){ 
+					if($("#name").val().replace(/\s/g,"")==""){
+						alert("이름을 입력해 주세요");
+						$("#name").val("");
+						$("#name").focus();
+						return;
+					}
+					if($("#birth").val().replace(/\s/g,"")==""){
+						alert("생년월일을 입력해 주세요");
+						$("#birth").val("");
+						$("#birth").focus();
+						return;
+					}
+					if (!$("input[name='language']").is(":checked")) {
+						alert("사용가능 언어를 선택해 주세요.");
+						$("input[name='language']:eq(0)").focus();
+						return;
+					}
+					$("#dataForm").attr({
+						"method":"post",
+						"action":"request.jsp"
+					});
+					$("#dataForm").submit();
+				});
+				
+				$("#resetBtn").click(function(){ 
+					$("#dataForm").each(function(){
+						this.reset();
+					});
+					$("input[name='scholarship']:eq(0)").prop("checked","true");
+					$("input[name='scholarship']:eq(0)").click();
+				});
+			}); //$ 함수 종료.
+		</script>	
+	</head>
+	<body>
+		<form id="dataForm">
+			<table>
+				<tr>
+					<th colspan="2">기술 정보 이력</th>
+				</tr>
+				<tr>
+					<td class="t1">이름</td>
+					<td class="t2"><input type="text" name="name" id="name" /></td>
+				</tr>
+				<tr>
+					<td class="t1">생년월일</td>
+					<td class="t2"><input type="date" name="birth" id="birth" /></td>
+				</tr>
+				<tr>
+					<td class="t1">학력</td>
+					<td class="t2">
+						<input type="radio" name="scholarship" value="고졸" /><label>고졸</label>
+						<input type="radio" name="scholarship" value="대졸" /><label>대졸</label>
+						<input type="radio" name="scholarship" value="대학원졸" /><label>대학원졸</label></td>
+				</tr>
+				<tr>
+					<td class="t1">학과(전공)</td>
+					<td class="t2">
+						<select name="major" id="major">
+							<!-- <option value="전산과">전산과 </option>
+							<option value="국문과">국문과 </option>
+							<option value="기계공학과">기계공학과 </option>
+							<option value="회계학과">회계학과 </option>
+							<option value="전자공학과">전기전자학과 </option>
+							<option value="경영학과">경영학과 </option>
+							<option value="법학과">법학과 </option>
+							<option value="일반고" selected>일반고</option>
+							<option value="특목고">특목고</option>
+							<option value="특성화고">특성화고</option> --> 
+					  	</select>
+					</td>
+				</tr>
+				<tr>
+					<td class="t1">사용가능 플랫폼</td>
+					<td class="t2">
+						<select name="platform" size="4" multiple>
+							<option value="Window 계열 PC" selected="selected">Window 계열 PC</option>
+							<option value="Window 계열 서버">Window 계열 서버</option>
+							<option value="UNIX">UNIX</option>
+							<option value="IBM OS/390">IBM OS/390</option>
+							<option value="리눅스">리눅스</option>
+					  	</select>
+					  </td>
+				</tr>
+				<tr>
+					<td class="t1">사용가능 언어</td>
+					<td class="t2">
+						<input type="checkbox" name="language" value="C" /><label>C</label>
+						<input type="checkbox" name="language" value="C++" /><label>C++</label>
+						<input type="checkbox" name="language" value="JAVA" /><label>JAVA</label>
+						<input type="checkbox" name="language" value="C#" /><label>C#</label>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="t3">
+						<input type="button" value="보내기" id="sendBtn" /> 
+						<input type="button" value="다시작성" id="resetBtn" />
+					</td>
+				</tr>
+			</table>	
+		</form>
+	</body>
+</html>

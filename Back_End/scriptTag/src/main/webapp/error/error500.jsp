@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%-- <%@ page errorPage = "/error/viewErrorMessage.jsp" %> --%>    
+<%@ page isErrorPage = "true" %>    
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />		
-		<title>예외 처리</title>
+		<title>에러페이지 - error500</title>
 		
 		<!-- 모바일 웹 페이지 설정 -->
 		<link rel="shortcut icon" href="../image/icon.png" />
@@ -17,25 +17,29 @@
 		<!--IE8이하 브라우저에서 HTML5를 인식하기 위해서는 아래의 패스필터를 적용하면 된다.--> 
 		<!--[if lt IE 9]>
 		<script src="../js/html5shiv.js"></script>
-		<![endif]-->		
+		<![endif]-->	
+		<style type="text/css">
+			#wrapper{width: 680px;}
+			#imgView{width: 100%;}
+			#msgView{clear: both; float: none;}
+			#msgView ul {padding-top: 5px;}
+		</style>
 	</head>
 	<body>
-		<p> name 파라미터값 :
- 		<%= request.getParameter("name").toUpperCase() %></p>
- 		
- 		<%-- <% try{ %>
- 			<p> name 파라미터 값 :
- 			<%= request.getParameter("name").toUpperCase() %></p>
- 		<% } catch(NullPointerException ne) { %>
- 			<p> 파라미터 값을 정상적으로 받지 못하였습니다.</p>
- 		<% } %> --%>
- 		
- 		<%-- <% String name = request.getParameter("name"); %>
- 		<% if(name != null) { %>
- 			<p> name 파라미터 값 : <%=name.toUpperCase() %> </p>
- 		<% } else { %>
- 			<p> 파라미터 값을 정상적으로 받지 못하였습니다.</p>
- 		<% } %> --%>
- 			
+		<div id="wrapper">
+			<p>요청 처리 과정에서 예외가 발생하였습니다.<br />
+			빠른 시간 내에 문제를 해결하도록 하겠습니다.</p>
+			<div id="imgView">
+				<img src="../image/error_image.png">
+			</div>
+			<div id="msgView">
+				<ul>
+					<li>
+						<label>에러 타입 : </label>
+						<%= exception.getClass().getName()  %>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</body>
 </html>

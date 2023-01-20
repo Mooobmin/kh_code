@@ -4,6 +4,7 @@ package com.board.service;
 import static com.board.common.JDBCTemplate.*;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.board.dao.BoardDao;
 import com.board.vo.Board;
@@ -24,6 +25,11 @@ public class BoardService {
 		return instance;
 	}
 	
+	public ArrayList<Board> boardList(){
+		ArrayList<Board> list = new BoardDao().boardList();
+		return list;
+	}
+	
 	public int insertBoard(Board board) {
 		Connection conn = getConnection();
 		
@@ -35,6 +41,16 @@ public class BoardService {
 			rollback(conn);
 		}
 		close(conn);
+		return result;
+	}
+	
+	public Board boardSelect(int boardNum) {
+		Board board = new BoardDao().boardSelect(boardNum);
+		return board;
+	}
+	
+	public int updateBoard(Board board) {
+		int result = new BoardDao().updateBoard(board);
 		return result;
 	}
 

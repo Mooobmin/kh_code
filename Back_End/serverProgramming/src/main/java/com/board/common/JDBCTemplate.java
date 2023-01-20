@@ -1,4 +1,4 @@
-package com.common;
+package com.board.common;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,7 +51,6 @@ public class JDBCTemplate {
 		try{
 			if(conn != null && !conn.isClosed()) {
 				conn.close();
-				//연결해제 3순위				
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -62,7 +61,6 @@ public class JDBCTemplate {
 		try{
 			if(pstmt != null && !pstmt.isClosed()) {
 				pstmt.close();
-				//연결해제 2순위				
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -73,7 +71,6 @@ public class JDBCTemplate {
 		try{
 			if(rset != null && !rset.isClosed()) {
 				rset.close();
-				//연결해제 1순위
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -34,6 +34,7 @@ public class BoardWriteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		Board board = new Board();
+		// form 태그 안의 name을 근거로 getParameter 준다.
 		board.setBoardWriter(request.getParameter("boardWriter"));
 		board.setBoardTitle(request.getParameter("boardTitle"));
 		board.setBoardContent(request.getParameter("boardContent"));

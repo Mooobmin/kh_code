@@ -39,7 +39,6 @@
 				<td colspan="2">
 					<input type="submit" value="등록하기">
 					<a href="<%=request.getContextPath() %>/boardList">목록으로</a>
-					<button type="button" "location.herf='<%=request.getContextPath() %>';">홈가기</button>
 				</td>
 			</tr>
 		</table>

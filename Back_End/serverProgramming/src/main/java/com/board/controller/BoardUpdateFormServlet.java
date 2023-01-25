@@ -12,33 +12,44 @@ import javax.servlet.http.HttpServletResponse;
 import com.board.service.BoardService;
 import com.board.vo.Board;
 
-@WebServlet("/boardUpdate")
-public class BoardUpdateServlet extends HttpServlet {
+/**
+ * Servlet implementation class BoardUpdateServlet
+ */
+@WebServlet("/boardUpdateForm")
+public class BoardUpdateFormServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
-		}
+	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//게시글 원글 등록 처리용 컨트롤러
 		request.setCharacterEncoding("UTF-8");
 		
-		Board board = new Board();
-		board.setBoardNum(Integer.parseInt(request.getParameter("boardNum")));
-		board.setBoardWriter(request.getParameter("boardWriter"));
-		board.setBoardTitle(request.getParameter("boardTitle"));
-		board.setBoardContent(request.getParameter("boardContent"));
+		int boardNum = Integer.parseInt(request.getParameter("boardNum"));
 		
+
 		BoardService boardService = BoardService.getInstance();
-		if(boardService.updateBoard(board) > 0) {
-			//response.sendRedirect("/serverProgramming/boardList");
-			response.sendRedirect(request.getContextPath() + "/boardList");
+		Board board = boardService.boardSelect(boardNum);
+		
+		RequestDispatcher dispatcher = null;
+		String url = "";
+		
+		if(board != null) {
+			url = "/board/boardUpdate.jsp";
+			request.setAttribute("board", board);
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("/views/common/error.jsp");
-			request.setAttribute("message", "게시글 수정 실패");
-			dispatcher.forward(request, response);
+			url = "/views/common/error.jsp";
+			request.setAttribute("mssage", "게시글 수정 실패");
 		}
+		dispatcher = request.getRequestDispatcher(url);
+		dispatcher.forward(request, response);
 	}
 
 }

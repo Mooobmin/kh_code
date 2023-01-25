@@ -44,7 +44,7 @@
 				
 				$(".updateFormBtn").click(function(){
 					let boardNum = $(this).parents("tr").attr("data-num");
-					location.href="<%=request.getContextPath()%>/boardUpdate?boardNum=" + boardNum;
+					location.href="<%=request.getContextPath()%>/boardUpdateForm?boardNum=" + boardNum;
 				});
 			});
 		</script>

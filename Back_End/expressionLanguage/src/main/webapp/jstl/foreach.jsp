@@ -125,13 +125,15 @@
 		<p>
 			콤마와 점을 구분자로 사용: <br />
 			<c:forTokens var="token" items="빨강색, 주황색.노란색.초록색, 파랑색.남색.보라색" delims=",.">
-				<button type="button">${token}</button>
+				<button type="button">${token}</button> 141
 			</c:forTokens>	
 		</p>
 		<hr />
-			<c:set var="fruits" value="사과, 파인애플, 바나나, 망고, 귤"/>
+		<p>
+			<c:set var="fruits" value="사과, 파인애플, 바나나, 망고, 귤" />
 			<c:forTokens var="token" items="${fruits}" delims=",">
 				${token} <br />
 			</c:forTokens>
+		</p>
 	</body>
 </html>

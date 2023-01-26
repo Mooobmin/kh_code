@@ -47,5 +47,6 @@
 		<p>\${empty param.user} = ${empty param.user}</p>
 							<%--String[] message = request.getParameterValues("msg") 같은 표현 --%>
 		<p>\${paramValues.msg} = ${paramValues.msg[0]} ${paramValues.msg[1]}</p>
+		<p>\${empty paramValues.msg} = ${empty paramValues.msg} </p>
 	</body>
 </html>

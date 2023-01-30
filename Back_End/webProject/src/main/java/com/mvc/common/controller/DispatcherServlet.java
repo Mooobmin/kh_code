@@ -43,13 +43,13 @@ public class DispatcherServlet extends HttpServlet {
 		 * System.out.println("path : " + path);
 		 */
 		//요청 URL에서 http://localhost:8080/board/getBoardList.do
-		String path = request.getRequestURI();
+		String path = request.getRequestURI(); //path = /board/getBoardList.do
 		
 		//2. HandlerMapping을 통해 path에 해당하는 Controller를 검색.
-		Controller ctrl = handlerMapping.getController(path);
+		Controller ctrl = handlerMapping.getController(path); //handlerMapping.getController("/board/getBoardList.do")
 		
 		//3. 검색된 Controller를 실행.
-		String viewName = ctrl.execute(request, response);
+		String viewName = ctrl.execute(request, response); //GetBoardListController 클래스의 execute() 메서드 호출
 		
 		//4. ViewResolver를 통해 viewName에 해당하는 화면 검색.
 		String view = null;

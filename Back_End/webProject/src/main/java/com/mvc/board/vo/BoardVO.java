@@ -5,7 +5,7 @@ public class BoardVO {
 	private String author;		//글 작성자
 	private String title;		//글 제목
 	private String content;		//글 내용
-	private int readent;  		//글 조회수
+	private int readcnt;  		//글 조회수
 	private String writeday;	//글 작성일
 	private int repRoot;		//답변글 작성 시 사용(원래글의 번호 참조)
 	private int repStep;		//답변글 작성 시 사용(답변글의 들여쓰기 지
@@ -19,22 +19,18 @@ public class BoardVO {
 	
 	public BoardVO() {}
 
-	
-	
-	public BoardVO(int num, String author, String title, String content, int readent, String writeday, int repRoot,
+	public BoardVO(int num, String author, String title, String content, int readcnt, String writeday, int repRoot,
 			int repStep, int repIndent) {
 		this.num = num;
 		this.author = author;
 		this.title = title;
 		this.content = content;
-		this.readent = readent;
+		this.readcnt = readcnt;
 		this.writeday = writeday;
 		this.repRoot = repRoot;
 		this.repStep = repStep;
 		this.repIndent = repIndent;
 	}
-
-
 
 	public int getNum() {
 		return num;
@@ -68,12 +64,12 @@ public class BoardVO {
 		this.content = content;
 	}
 
-	public int getReadent() {
-		return readent;
+	public int getReadcnt() {
+		return readcnt;
 	}
 
-	public void setReadent(int readent) {
-		this.readent = readent;
+	public void setReadcnt(int readcnt) {
+		this.readcnt = readcnt;
 	}
 
 	public String getWriteday() {
@@ -145,7 +141,7 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [num=" + num + ", author=" + author + ", title=" + title + ", content=" + content + ", readent="
-				+ readent + ", writeday=" + writeday + ", repRoot=" + repRoot + ", repStep=" + repStep + ", repIndent="
+				+ readcnt + ", writeday=" + writeday + ", repRoot=" + repRoot + ", repStep=" + repStep + ", repIndent="
 				+ repIndent + ", passwd=" + passwd + ", rCount=" + rCount + ", search=" + search + ", keyword="
 				+ keyword + "]";
 	}

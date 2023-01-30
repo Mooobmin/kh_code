@@ -11,7 +11,7 @@
   </welcome-file-list>
   <servlet>
   	<servlet-name>dispatcher</servlet-name>
-  	<servlet-class>com.mvc.common.controller.DispathcherServlet</servlet-class>
+  	<servlet-class>com.mvc.common.controller.DispatcherServlet</servlet-class>
   </servlet>
   <servlet-mapping>
   	<servlet-name>dispatcher</servlet-name>

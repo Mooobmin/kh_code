@@ -49,8 +49,8 @@
 				<tbody>
 					<c:choose>
 						<c:when test="${not empty list}">
-							<c:forEach var="vo" items="%{list}">
-								<tr class="text-center" data-num="%{vo.num}">
+							<c:forEach var="vo" items="${list}">
+								<tr class="text-center" data-num="${vo.num}">
 									<td>${vo.num}</td>
 									<td class="text-left"><span class="goDetail">${vo.title}</span></td>
 									<td>${vo.author}</td>

@@ -18,6 +18,7 @@ public class BoardDAO {
 		}
 		return instance;
 	} //싱글톤 방식
+	
 	private BoardDAO() {}
 	
 	/***************************************************************
@@ -47,7 +48,7 @@ public class BoardDAO {
 				data.setAuthor(rs.getString("author"));
 				data.setTitle(rs.getString("title"));
 				data.setWriteday(rs.getString("writeday"));
-				data.setReadent(rs.getInt("readcnt"));
+				data.setReadcnt(rs.getInt("readcnt"));
 				data.setRepRoot(rs.getInt("repRoot"));
 				data.setRepStep(rs.getInt("repStep"));
 				data.setRepIndent(rs.getInt("repIndent"));
@@ -116,15 +117,14 @@ public class BoardDAO {
 		}
 	}
 	
+	/***************************************************************
+	 * boardDelete() 메서드 : 게시물 삭제 처리 메서드.
+	 * @param 게시물 번호, 비밀번호
+	 ***************************************************************/
 	
 	/***************************************************************
 	 * boardUpdate() 메서드 : 게시물 수정 처리 메서드.
 	 * @param BoardVO
 	 * @return boolean. 
-	 ***************************************************************/
-	
-	/***************************************************************
-	 * boardDelete() 메서드 : 게시물 삭제 처리 메서드.
-	 * @param 게시물 번호, 비밀번호
 	 ***************************************************************/
 }

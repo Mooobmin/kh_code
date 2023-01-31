@@ -46,8 +46,7 @@ public class BoardService {
 		boolean result = dao.boardUpdate(vo);
 		return result;
 	}
-	public BoardVO deleteForm() {
-		
-		return null;
+	public void deleteForm(String num) {
+		dao.boardDelete(num);
 	}
 }

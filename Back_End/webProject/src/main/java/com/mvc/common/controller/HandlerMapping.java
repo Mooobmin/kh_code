@@ -25,8 +25,7 @@ public class HandlerMapping {
 		
 		mappings.put("/board/updateForm.do", new UpdateFormController());
 		mappings.put("/board/updateBoard.do", new UpdateBoardController());
-		
-		mappings.put("board/deleteBoard.do", new DeleteBoardController());
+		mappings.put("/board/deleteBoard.do", new DeleteBoardController());
 	}
 	
 	public Controller getController(String path) {	//게시판리스트일 경우 path="/board/getBoardList.d

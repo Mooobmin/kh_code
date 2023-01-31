@@ -15,8 +15,9 @@ public class GetBoardListController implements Controller{
 		BoardService service = BoardService.getInstance();
 		//검색 부분 제외하고 게시판 리스트 보여주기 위한 요청
 		ArrayList<BoardVO> list = service.boardList();
-		request.setAttribute("list", list);
 		
+		request.setAttribute("list", list);
+		//jsp 페이지에서 사용방법은 ${list} : 반환형이 ArrayList이기 때문에, 반복문사용(JSTL의 forEach)
 		return "/board/getBoardList";
 	}
 

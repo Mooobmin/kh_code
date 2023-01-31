@@ -47,6 +47,7 @@ public class DispatcherServlet extends HttpServlet {
 		
 		//2. HandlerMapping을 통해 path에 해당하는 Controller를 검색.
 		Controller ctrl = handlerMapping.getController(path); //handlerMapping.getController("/board/getBoardList.do")
+		//Controller ctrl = new GetBoardListController()의 주솟값 반환
 		
 		//3. 검색된 Controller를 실행.
 		String viewName = ctrl.execute(request, response); //GetBoardListController 클래스의 execute() 메서드 호출

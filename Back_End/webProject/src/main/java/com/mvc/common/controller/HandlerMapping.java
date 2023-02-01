@@ -8,8 +8,15 @@ import com.mvc.board.controller.DetailBoardController;
 import com.mvc.board.controller.GetBoardListController;
 import com.mvc.board.controller.InsertBoardController;
 import com.mvc.board.controller.InsertFormController;
+import com.mvc.board.controller.PasswdCheckController;
 import com.mvc.board.controller.UpdateBoardController;
 import com.mvc.board.controller.UpdateFormController;
+import com.mvc.join.controller.GetJoinListController;
+import com.mvc.join.controller.GetMyPageController;
+import com.mvc.join.controller.InsertJoinController;
+import com.mvc.join.controller.InsertJoinFormController;
+import com.mvc.join.controller.loginCheckController;
+import com.mvc.join.controller.loginPageController;
 
 public class HandlerMapping {
 	private Map<String, Controller> mappings;
@@ -22,10 +29,23 @@ public class HandlerMapping {
 		mappings.put("/board/insertForm.do", new InsertFormController());
 		mappings.put("/board/insertBoard.do", new InsertBoardController());
 		mappings.put("/board/detailBoard.do", new DetailBoardController());
-		
 		mappings.put("/board/updateForm.do", new UpdateFormController());
 		mappings.put("/board/updateBoard.do", new UpdateBoardController());
 		mappings.put("/board/deleteBoard.do", new DeleteBoardController());
+		mappings.put("/board/passwdCheck.do", new PasswdCheckController());
+		
+		
+		/*로그인 핸들러*/
+		mappings.put("/join/loginPage.do", new loginPageController());
+		mappings.put("/join/loginBoard.do", new loginCheckController());
+		
+		/* 회원가입 핸들러 */
+		mappings.put("/join/insertJoinForm.do", new InsertJoinFormController());
+	    mappings.put("/join/insertJoin.do", new InsertJoinController());
+	    
+	    /* 관리자 페이지 핸들러*/
+		mappings.put("/join/getJoinList.do", new GetJoinListController());
+		mappings.put("/join/getMyPage.do", new GetMyPageController());
 	}
 	
 	public Controller getController(String path) {	//게시판리스트일 경우 path="/board/getBoardList.d

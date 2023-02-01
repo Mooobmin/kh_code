@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/WEB-INF/common/common.jsp" %>
 		<style type="text/css">
+			#pwdChk{visibility:hidden;}
 			#boardPwdBut{margin-bottom: 8px;}
 			.table-height{height: 200px;}
 			.table-height .text-vertical{vertical-align: middle;}
@@ -12,25 +13,86 @@
 			$(function(){
 				/* 수정 버튼 클릭 시 처리 이벤트 */
 				$("#updateForm").click(function(){
-					$("#f_data").attr({
+					/*$("#f_data").attr({
 						"method" : "post",
 						"action" : "/board/updateForm.do"
 					});
-					$("#f_data").submit();
+					$("#f_data").submit();*/
+					
+					//비밀번호 확인 후 처리
+					$("#pwdChk").css("visibility", "visible");
+					$("#msg").text("작성시 입력한 비밀번호를 입력해주세요.").css("color", "#000009");
+					buttonCheck = "updateButton";
 				});
+				
 				/* 삭제 버튼 클릭 시 처리 이벤트 */
 				$("#boardDelete").click(function(){
-					$("#f_data").attr({
+					/*$("#f_data").attr({
 						"method" : "post",
 						"action" : "/board/deleteBoard.do"
 					});
-					$("#f_data").submit();
+					$("#f_data").submit();*/
+					
+					//비밀번호 확인 후 처리
+					$("#pwdChk").css("visibility", "visible");
+					$("#msg").text("작성시 입력한 비밀번호를 입력해주세요.").css("color", "#000009");
+					buttonCheck = "deleteButton";
 				});
+				
+				/* 비밀번호 확인 버튼 클릭 시 처리 이벤트*/
+				$("#pwdBut").click(function(event){
+					boardPwdConfirm();
+				});
+				
+				$("#pwdButCancel").click(function(){
+					$("#passwd").val("");
+					$("#pwdChk").css("visibility", "hidden");
+					buttonCheck = "";
+				});
+				
 				/* 목록 버튼 클릭 시 처리 이벤트 */
 				$("#boardListBtn").click(function(){
 					location.href="/board/getBoardList.do";
 				});
 			});
+				
+			/* 비밀번호 클릭시 실질적인 처리 함수 */
+			function boardPwdConfirm(){
+				if(!chkData("#passwd", "비밀번호를")) return;
+				//if(!dataCheck("#passwd", "#msg", "비밀번호를")) return;
+				else{
+					$.ajax({
+						url : "/board/passwdCheck.do", //전송 url
+						type : "post",				   //전송 method 방식
+						data : $("#f_pwd").serialize(),//폼 전체 데이터 전송
+						dataType : "text",
+						error : function(){				//실행시 오류가 발생하였을 경우
+							alert("시스템 오류 입니다. 관리자에게 문의하세요.");
+						},								//정상적으로 실행이 되었을 경우
+						success : function(resultData){
+							let goUrl = "";				//이동할 경로를 저장하는 변수
+							if(resultData == 0){		//일치하지 않는 경우
+								$("#msg").text("작성시 입력한 비밀번호가 일치하지 않습니다.").css("color", "red");
+								$("#passwd").select();
+							} else if(resultData == 1){	//일치한 경우
+								$("msg").text("");
+								
+								if(buttonCheck=="updateButton"){ 			//수정버튼 클릭 시 동작
+									goUrl = "/board/updateForm.do";
+									$("#f_data").attr("action", goUrl);
+									$("#f_data").submit();
+								} else if(buttonCheck == "deleteButton"){ 	//삭제버튼 클릭 시 동작
+									if(confirm("정말 삭제하시겠습니까?")){
+										goUrl = "/board/deleteBoard.do";
+										$("#f_data").attr("action", goUrl);
+										$("#f_data").submit();
+									}
+								}
+							}
+						}
+					});	
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -40,8 +102,18 @@
 				<input type="hidden" name="num" value="${detail.num}">
 			</form>
 			
+			<%-- =============비밀번호 확인 버튼 및 버튼 추가 시작============= --%>
 			<div id="boardPwdBut" class="row text-center">
 				<div id="pwdChk" class="col-md-9 text-left">
+					<form name="f_pwd" id="f_pwd" class="form-inline">
+						<input type="hidden" name="num" id="num" value="${detail.num}"/>
+						<label for="passwd" id="l_pwd">비밀번호 : </label>
+						<input type="password" name="passwd" id="passwd" class="form-control"/>
+						
+						<button type="button" id="pwdBut" class="btn btn-default btn-sm">확인</button>
+						<button type="button" id="pwdButCancel" class="btn btn-default btn-sm">취소</button>
+						<span id="msg"></span>
+					</form>
 				</div>
 				
 				<div class="col-md-3 text-right">
@@ -51,7 +123,9 @@
 					<button type="button" id="boardListBtn" class="btn btn-primary btn-sm">목록</button>
 				</div>
 			</div>
+			<%-- =============비밀번호 확인 버튼 및 버튼 추가 종료============= --%>
 			
+			<%-- =============상세정보 보여주기 시작============= --%>
 			<div class="text-center">
 				<table class="table table-bordered">
 					<tbody>
@@ -76,6 +150,7 @@
 					</tbody>
 				</table>
 			</div>
+			<%-- =============상세정보 보여주기 종료============= --%>
 		</div>
 	</body>
 </html>

@@ -49,4 +49,8 @@ public class BoardService {
 	public void deleteForm(String num) {
 		dao.boardDelete(num);
 	}
+	public int boardPasswdChk(String num, String passwd) {
+		int result = dao.boardPasswdChk(num, passwd);
+		return result;
+	}
 }

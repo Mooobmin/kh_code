@@ -213,7 +213,6 @@ public class BoardDAO {
 
 	/***************************************************************
 	 * boardDelete() 메서드 : 게시물 삭제 처리 메서드.
-	 * 
 	 * @param 게시물 번호, 비밀번호
 	 ***************************************************************/
 	public void boardDelete(String num) {
@@ -235,4 +234,40 @@ public class BoardDAO {
 			close(conn);
 		}
 	} // end delete
+
+	/***************************************************************
+	 * boardPasswdChk() 메서드 : 비밀번호 조회 메서드
+	 * @param 게시물 번호, 비밀번호
+	 * @return int 리턴
+	 ***************************************************************/
+	
+	public int boardPasswdChk(String num, String passwd) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+			StringBuffer query = new StringBuffer();
+			query.append("select nvl((select 1 from board where num = ? ");
+			query.append("and passwd = ?), 0) as result from dual");
+			
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setInt(1, Integer.parseInt(num));
+			pstmt.setString(2, passwd);
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result"); //비밀번호 일치 : 1 / 불일치 : 0 반
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
 }

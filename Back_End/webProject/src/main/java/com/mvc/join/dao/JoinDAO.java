@@ -144,7 +144,7 @@ public class JoinDAO {
             rs = pstmt.executeQuery();
  
             if (rs.next()) { 
-                dbPW = rs.getString("password"); // 비번을 변수에 넣는다.
+                dbPW = rs.getString("passwd"); // 비번을 변수에 넣는다.
                 if (dbPW.equals(passwd)) 
                     x = 1; 
                 else                  
@@ -163,4 +163,84 @@ public class JoinDAO {
         }
         return x;
     }
+	
+	/*회원 수정 기능*/
+	public boolean joinUpdate(JoinVO vo) {
+	      Connection conn = null;
+	      PreparedStatement pstmt = null;
+	      boolean success = false;
+	      try {
+	         conn = getConnection();
+	         StringBuffer query = new StringBuffer();
+	         query.append("update jointable set passwd = ? , tel=? ");
+	         query.append("where id = ?"); 
+	         
+	         pstmt= conn.prepareStatement(query.toString());
+	         pstmt.setString(1, vo.getPasswd());
+	         pstmt.setString(2, vo.getTel());
+	         pstmt.setString(3, vo.getId());
+	                  
+	         int count = pstmt.executeUpdate();
+	         if(count == 1) success = true;
+	         
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	      }finally {
+	         close(pstmt);
+	         close(conn);
+	      }
+	      return success;
+	   }
+	
+	/*회원 탈퇴 기능*/
+	public void joinDelete(String id){
+		Connection conn = null;
+	    PreparedStatement pstmt = null;
+	      
+	    try {
+	    	conn = getConnection();
+	        StringBuffer query = new StringBuffer();
+	        query.append("DELETE FROM jointable WHERE id = ?");
+	         
+	        pstmt = conn.prepareStatement(query.toString());
+	        pstmt.setString(1, id);
+	        pstmt.executeUpdate();
+	        
+	    } catch(Exception e) {
+	    	e.printStackTrace();
+	    } finally {
+	    	close(pstmt);
+	        close(conn);
+	      }
+	   }
+	
+	public int joinPasswdChk(String id, String passwd) {
+	      Connection conn = null;
+	      ResultSet rs = null;
+	      PreparedStatement pstmt = null;
+	      int result = 0;
+	      try {
+	         conn = getConnection();
+	         StringBuffer query = new StringBuffer();
+	         query.append("select nvl((select 1 from jointable where id = ? ");
+	         query.append("and passwd = ?), 0) as result from dual");
+	         
+	         pstmt = conn.prepareStatement(query.toString());
+	         pstmt.setString(1, id);
+	         pstmt.setString(2, passwd);
+	         
+	         rs = pstmt.executeQuery();
+	         if(rs.next()) {
+	            result = rs.getInt("result"); // 비번일치 : 1 / 불일치 : 0 반환
+	         }
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      } finally {
+	         close(rs);
+	         close(pstmt);
+	         close(conn);
+	         
+	      }
+	      return result;
+	   }
 }

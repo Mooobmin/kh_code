@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.mvc.common.controller.Controller;
 import com.mvc.join.service.JoinService;
+import com.mvc.join.vo.JoinVO;
 
 public class loginCheckController implements Controller {
 
@@ -16,20 +17,21 @@ public class loginCheckController implements Controller {
 		String passwd = request.getParameter("passwd");
 		
 		JoinService service = JoinService.getInstance();
-		
 		int result = service.loginCheck(id, passwd);
 		
 		if(result == 1) {
-			System.out.println("여기까지 들어오는거니?");
-			request.setAttribute("id", id);
-			request.setAttribute("passwd", passwd);
-			path = "/board/getBoardList.do";
+			//System.out.println("여기까지 들어오는거니?");
+			JoinVO data = service.joinMyPage(id);
+			//System.out.println(data);
+			request.setAttribute("mypage", data);
+			return "/join/getMyPage";
+			//path = "/join/getMyPage.do";
 		} else if(result == 0){
-			path = "join/loginPage";
-			//request.setAttribute("errorMsg", "아이디가 틀렸습니다.");
+			path = "/join/loginPage";
+			request.setAttribute("errorMsg", "아이디 혹은 비밀번호가 틀렸습니다.");
 		} else if(result == -1){
-			path = "join/loginPage";
-			//request.setAttribute("errorMsg", "아이디가 틀렸습니다.");
+			path = "/join/loginPage";
+			request.setAttribute("errorMsg", "아이디 혹은 비밀번호가 틀렸습니다.");
 		}
 		
 		return path;

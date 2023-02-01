@@ -22,7 +22,7 @@
                
                $(".form-horizontal").attr({
                   "method" : "post",
-                  "action" : "/join/insertJoin.do"
+                  "action" : "/join/getMyPage.do"
                });
                $(".form-horizontal").submit();
             });

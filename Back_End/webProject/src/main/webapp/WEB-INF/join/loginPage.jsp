@@ -1,93 +1,112 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ include file="/WEB-INF/common/common.jsp" %>
-	<script type="text/javascript">
-		$(function () {
-			//$('#signinBtn').click(function () {
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 				
-			//})
-		})
-	</script>
+		<title>관리자 페이지</title>
 	
+		<link rel="shortcut icon" href="../image/icon.png" />
+		<link rel="apple-touch-icon" href="../image/icon.png" />
+		
+		<!--[if lt IE 9]>
+		<script src="../js/html5shiv.js"></script>
+		<![endif]-->
+			
+		<link rel="stylesheet" type="text/css" href="/include/dist/css/bootstrap.min.css"/>
+		<link rel="stylesheet" type="text/css" href="/include/dist/css/bootstrap-theme.css"/>
+		<style type="text/css">
+			body {
+			  padding-top: 40px;
+			  padding-bottom: 40px;
+			  background-color: #eee;
+			}
+			
+			.form-signin {
+			  max-width: 330px;
+			  padding: 15px;
+			  margin: 0 auto;
+			}
+			.form-signin .form-signin-heading,
+			.form-signin .checkbox {
+			  margin-bottom: 10px;
+			}
+			.form-signin .checkbox {
+			  font-weight: normal;
+			}
+			.form-signin .form-control {
+			  position: relative;
+			  height: auto;
+			  -webkit-box-sizing: border-box;
+			     -moz-box-sizing: border-box;
+			          box-sizing: border-box;
+			  padding: 10px;
+			  font-size: 16px;
+			}
+			.form-signin .form-control:focus {
+			  z-index: 2;
+			}
+			.form-signin input[type="email"] {
+			  margin-bottom: -1px;
+			  border-bottom-right-radius: 0;
+			  border-bottom-left-radius: 0;
+			}
+			.form-signin input[type="password"] {
+			  margin-bottom: 10px;
+			  border-top-left-radius: 0;
+			  border-top-right-radius: 0;
+			}
+		</style>
+		
+		<script type="text/javascript" src="/include/js/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript" src="/include/js/common.js"></script>
+		<script type="text/javascript" src="/include/dist/js/bootstrap.min.js"></script>	
+		<script type="text/javascript">
+			$(function(){
+				let msg = "${errorMsg}";
+				if(msg != ""){
+					alert(msg);
+				}
+				
+				$("#loginBtn").click(function(){
+					console.log("클릭");
+					if(!chkData("#id", "아이디를")) return;
+					else if(!chkData("#passwd", "비밀번호를")) return;
+					else{
+						$("#loginForm").attr({
+							"method" : "post",
+							"action" : "/join/loginBoard.do"
+						});
+						$("#loginForm").submit();
+					}
+				});
+				$("#insertBtn").click(function(){
+					location.href="/join/insertJoinForm.do";
+				});
+			});
+		
+			
+		</script>
+		
 	</head>
 	<body>
-		<nav class="navbar navbar-default">
-			<div class="navbar-header">
-				<button type="button" class="navbar-toggle collapsed"
-					data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
-					aria-expanded="false">
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<a class="navbar-brand" href="/index.html">JSP 게시판 웹 사이트</a>
-			</div>
-			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-				<ul class="nav navbar-nav">
-					<li><a href="/index.html">메인</a></li>
-					<li ><a href="/board/getBoardList.do">게시판</a></li>
-				</ul>
+    <div class="container">
 
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">접속하기<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="board/getBoardList.do">로그인</a></li>
-							<li><a href="join.jsp">회원가입</a></li>
-						</ul>
-					</li>
-				</ul>
-	
-				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown">
-						<a href="#" class="dropdown-toggle"
-							data-toggle="dropdown" role="button" aria-haspopup="true"
-							aria-expanded="false">회원관리<span class="caret"></span></a>
-						<ul class="dropdown-menu">
-							<li><a href="logoutAction.jsp">마이페이지</a></li>
-						</ul>
-					</li>
-				</ul>
-			</div>
-		</nav>
-		<div class="container">
-		    
-		      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
-		        <div class="card card-signin my-5t">
-		          <div class="card-body">
-		            <h5 class="card-title text-center">Log In</h5>
-		            
-		            <form class="form-signin" method="post" action="/join/loginboard.do">
-		              <div class="form-label-group">
-		                <input type="text" id="id" name="id" class="form-control" placeholder="id" required autofocus>
-		              </div><br>
-		
-		              <div class="form-label-group">
-		                <input type="password" id="passwd" name="passwd" class="form-control" placeholder="Password" required>
-		              </div>
-		              
-		              <hr>
-		              
-				<%-- <div class="form-label-group">
-		              <c:if test="${check == 1 }">
-		                <label>${message }</label>
-		              </c:if>
-		              </div> --%>
-		
-		              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit" id="signinBtn">Sign in</button>
-		              <hr class="my-4">
-		              	Forgot your <a href="javascript:void(0)" onclick="findid()">ID</a> or 
-		              				<a href="javascript:void(0)" onclick="findpassword()">Password</a>?
-		              <button class="btn btn-lg btn-secondary btn-block text-uppercase" id="joinBtn">Join</button>
-		            </form>
-		            
-		          </div>
-		        </div>
-		      </div>
-		    
-		  </div>
+      <form class="form-signin" id="loginForm">
+        <h2 class="form-signin-heading">로그인</h2>
+        <label for="inputEmail" class="sr-only">Email address</label>
+        <input type="text" name="id" id="id" class="form-control" placeholder="아이디">
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="passwd" name="passwd" class="form-control" placeholder="비밀번호">
+
+        <button type="button" id="loginBtn" class="btn btn-lg btn-primary btn-block" >로그인</button>
+        <button type="button" id="insertBtn" class="btn btn-lg btn-primary btn-block" >회원가입</button>
+      </form>
+
+    </div> <!-- /container -->
 	</body>
 </html>

@@ -33,8 +33,25 @@ public class JoinService {
 	      return result;
 	   }
 	
-	public int loginCheck(String id, String name) {	
+	public int loginCheck(String id, String name) {
 		return dao.loginCheck(id, name);
 	}
+	
+	 public void joinDelete(String id) {
+	       dao.joinDelete(id);
+	    }
+	    
+	    public int joinPasswdChk(String id, String passwd) {
+	       int result = dao.joinPasswdChk(id, passwd);
+	       return result;
+	    }
+	    public JoinVO updateJoinForm(String id) {
+	        JoinVO vo = dao.joinMyPage(id);
+	        return vo;
+	     }
+	     public boolean JoinUpdate(JoinVO vo) {
+	        boolean result = dao.joinUpdate(vo);
+	        return result;
+	     }	    
 	
 }

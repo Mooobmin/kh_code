@@ -1,8 +1,12 @@
 package com.mvc.join.controller;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mvc.board.service.BoardService;
+import com.mvc.board.vo.BoardVO;
 import com.mvc.common.controller.Controller;
 import com.mvc.join.service.JoinService;
 import com.mvc.join.vo.JoinVO;
@@ -16,15 +20,21 @@ public class loginCheckController implements Controller {
 		String id = request.getParameter("id");
 		String passwd = request.getParameter("passwd");
 		
-		JoinService service = JoinService.getInstance();
-		int result = service.loginCheck(id, passwd);
+		JoinService joinservice = JoinService.getInstance();
+		BoardService boardservice = BoardService.getInstance();
+		int result = joinservice.loginCheck(id, passwd);
+		
+		
+		ArrayList<BoardVO> list = boardservice.boardList();
+		
 		
 		if(result == 1) {
 			//System.out.println("여기까지 들어오는거니?");
-			JoinVO data = service.joinMyPage(id);
+			JoinVO data = joinservice.joinMyPage(id);
 			//System.out.println(data);
 			request.setAttribute("mypage", data);
-			return "/join/getMyPage";
+			request.setAttribute("list", list);
+			return "/join/getMainPage";
 			//path = "/join/getMyPage.do";
 		} else if(result == 0){
 			path = "/join/loginPage";

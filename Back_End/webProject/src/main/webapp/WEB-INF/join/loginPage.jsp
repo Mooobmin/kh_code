@@ -67,9 +67,13 @@
 		<script type="text/javascript" src="/include/dist/js/bootstrap.min.js"></script>	
 		<script type="text/javascript">
 			$(function(){
-				let msg = "${errorMsg}";
-				if(msg != ""){
-					alert(msg);
+				let errormsg = "${errorMsg}";
+				let joinmsg = "${joinMsg}";
+				if(errormsg != ""){
+					alert(errormsg);
+				}
+				if(joinmsg != ""){
+					alert(joinmsg);
 				}
 				
 				$("#loginBtn").click(function(){

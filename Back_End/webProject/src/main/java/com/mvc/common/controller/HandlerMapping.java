@@ -14,6 +14,7 @@ import com.mvc.board.controller.UpdateFormController;
 import com.mvc.join.controller.DeleteJoinController;
 import com.mvc.join.controller.GetJoinListController;
 import com.mvc.join.controller.GetMyPageController;
+import com.mvc.join.controller.IdCheckController;
 import com.mvc.join.controller.InsertJoinController;
 import com.mvc.join.controller.InsertJoinFormController;
 import com.mvc.join.controller.UpdateJoinController;
@@ -46,6 +47,7 @@ public class HandlerMapping {
 		/* 회원가입 핸들러 */
 		mappings.put("/join/insertJoinForm.do", new InsertJoinFormController());
 	    mappings.put("/join/insertJoin.do", new InsertJoinController());
+	    mappings.put("/join/idCheck.do", new IdCheckController());
 	    
 	    /* 회원 수정 핸들러 */
 	    mappings.put("/join/updateJoinForm.do", new UpdateJoinFormController());

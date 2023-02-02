@@ -20,18 +20,12 @@ public class InsertJoinController implements Controller {
       vo.setGender(request.getParameter("gender"));
       vo.setTel(request.getParameter("tel"));
       
-      
       JoinService joinService = JoinService.getInstance();
       boolean result = joinService.insertJoin(vo);
       
       if(result) {
-    	 request.setAttribute("id", vo);
-    	 request.setAttribute("passwd", vo);
-    	 request.setAttribute("name", vo);
-    	 request.setAttribute("gender", vo);
-    	 request.setAttribute("tel", vo);
-    	 
-         path =  "/join/getMyPage";
+         path =  "/join/loginPage";
+         request.setAttribute("joinMsg", "가입이 완료되었습니다. 로그인 해주세요");
       }
       
       return path;

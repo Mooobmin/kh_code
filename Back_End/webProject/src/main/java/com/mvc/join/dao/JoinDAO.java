@@ -123,6 +123,36 @@ public class JoinDAO {
 	      return result;
 	   }
 	
+	/* 아이디 체크 */
+	public int IdCheck(String id) {
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int result = 0;
+        try {
+           con = getConnection();
+           StringBuffer sql = new StringBuffer();
+           sql.append("SELECT NVL((SELECT 1 FROM jointable WHERE id = ?), 0) ");
+           sql.append("AS result FROM dual");
+           
+           pstmt = con.prepareStatement(sql.toString());
+           pstmt.setString(1, id);
+           
+           rs = pstmt.executeQuery();
+           
+           if(rs.next()) {
+              result = rs.getInt("result");
+           }
+        }catch(Exception e) {
+           e.printStackTrace();
+        }finally {
+           close(rs);
+           close(pstmt);
+           close(con);
+        }
+        return result;
+     }
+	
 	/*로그인 기능*/
 	public int loginCheck(String id, String passwd) {
     	System.out.println("dao는?");

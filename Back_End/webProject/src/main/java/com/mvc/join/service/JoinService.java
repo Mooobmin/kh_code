@@ -33,6 +33,11 @@ public class JoinService {
 	      return result;
 	   }
 	
+	public int idCheck(String id) {
+	      int result = dao.IdCheck(id);
+	      return result;
+	   }
+	
 	public int loginCheck(String id, String name) {
 		return dao.loginCheck(id, name);
 	}

@@ -59,6 +59,7 @@ public class HandlerMapping {
 	    /* 관리자 페이지 핸들러*/
 		mappings.put("/join/getJoinList.do", new GetJoinListController());
 		mappings.put("/join/getMyPage.do", new GetMyPageController());
+		mappings.put("/join/getMyMainPage.do", new GetMyPageController());
 	}
 	
 	public Controller getController(String path) {	//게시판리스트일 경우 path="/board/getBoardList.d

@@ -270,4 +270,67 @@ public class BoardDAO {
 		}
 		return result;
 	}
+	
+	/***********************************************************
+	 * makeReply() 메서드: 답변글의 기존 repStep 1 증가
+	 ***********************************************************/
+	public void makeReply(int root , int step ){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		try{
+			conn = getConnection();
+
+			StringBuffer query = new StringBuffer();
+			query.append("UPDATE board SET repStep = repStep + 1 ");
+			query.append("WHERE repRoot = ? AND repStep > ? ");
+			
+			pstmt = conn.prepareStatement(query.toString());
+			pstmt.setInt(1, root);
+			pstmt.setInt(2, step);
+			pstmt.executeUpdate( );
+		}catch( Exception e){ 
+			e.printStackTrace();
+		}finally{
+			close(pstmt);
+			close(conn);
+		}
+	}
+
+	/***********************************************************
+	 * replyInsert() 메서드: 답변 입력 처리
+	 ***********************************************************/
+	public boolean replyInsert(BoardVO vo){
+		makeReply(vo.getRepRoot(), vo.getRepStep());
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		boolean result = false;
+		try{
+			conn = getConnection();
+			
+			StringBuffer query = new StringBuffer();
+			query.append("INSERT INTO board(num, author, title, ");
+			query.append("content, repRoot, repStep, repIndent, passwd) ");
+			query.append("values( board_seq.nextval, ?, ?, ?, ?, ?, ?, ?)");
+			
+			pstmt = conn.prepareStatement(query.toString());
+			
+			pstmt.setString (1, vo.getAuthor());
+			pstmt.setString (2, vo.getTitle());
+			pstmt.setString (3, vo.getContent());
+			pstmt.setInt (4, vo.getRepRoot());
+			pstmt.setInt (5, vo.getRepStep() + 1);
+			pstmt.setInt (6, vo.getRepIndent() + 1);
+			pstmt.setString (7, vo.getPasswd());
+			int count = pstmt.executeUpdate();
+			
+			if(count == 1) result = true;
+		}catch( Exception e){ 
+			e.printStackTrace();
+			result = false;
+		}finally{
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}//end reply	
 }

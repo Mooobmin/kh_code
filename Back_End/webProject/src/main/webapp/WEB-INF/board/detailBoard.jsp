@@ -54,6 +54,15 @@
 				$("#boardListBtn").click(function(){
 					location.href="/board/getBoardList.do";
 				});
+				
+				/* 답변 버튼 클릭 시 처리 이벤트 */
+				$("#boardReply").click(function(){
+					$("#f_data").attr({
+						"method" : "post",
+						"action" : "/board/replyForm.do"
+				});
+				$("#f_data").submit();	
+				});
 			});
 				
 			/* 비밀번호 클릭시 실질적인 처리 함수 */

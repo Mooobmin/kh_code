@@ -26,12 +26,12 @@ public class loginCheckController implements Controller {
 		
 		
 		ArrayList<BoardVO> list = boardservice.boardList();
-		
+		System.out.println(result);
 		
 		if(result == 1) {
 			//System.out.println("여기까지 들어오는거니?");
 			JoinVO data = joinservice.joinMyPage(id);
-			//System.out.println(data);
+			System.out.println(result);
 			request.setAttribute("mypage", data);
 			request.setAttribute("list", list);
 			return "/join/getMainPage";

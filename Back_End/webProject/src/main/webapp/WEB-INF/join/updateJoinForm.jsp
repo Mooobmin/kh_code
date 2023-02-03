@@ -67,7 +67,7 @@
                   </tr>
                   <tr>
                      <td class="col-md-3">회원가입일</td>
-                     <td class="col-md-9 text-left">${updateData.regdate }</td>   
+                     <td class="col-md-9 text-left">${updateData.regdate}</td>   
                   </tr>                  
                </table>
             </form>

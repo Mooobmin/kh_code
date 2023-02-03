@@ -9,8 +9,10 @@ import com.mvc.board.controller.GetBoardListController;
 import com.mvc.board.controller.InsertBoardController;
 import com.mvc.board.controller.InsertFormController;
 import com.mvc.board.controller.PasswdCheckController;
+import com.mvc.board.controller.ReplyFormController;
 import com.mvc.board.controller.UpdateBoardController;
 import com.mvc.board.controller.UpdateFormController;
+import com.mvc.board.controller.insertReplyController;
 import com.mvc.join.controller.DeleteJoinController;
 import com.mvc.join.controller.GetJoinListController;
 import com.mvc.join.controller.GetMyPageController;
@@ -38,6 +40,8 @@ public class HandlerMapping {
 		mappings.put("/board/updateBoard.do", new UpdateBoardController());
 		mappings.put("/board/deleteBoard.do", new DeleteBoardController());
 		mappings.put("/board/passwdCheck.do", new PasswdCheckController());
+		mappings.put("/board/replyForm.do", new ReplyFormController());
+		mappings.put("/board/insertReply.do", new insertReplyController());
 		
 		
 		/*로그인 핸들러*/

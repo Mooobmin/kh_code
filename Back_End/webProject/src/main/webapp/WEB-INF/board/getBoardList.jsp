@@ -49,15 +49,24 @@
 						</thead>
 						<tbody>
 							<c:choose>
-								<c:when test="${not empty list}">
+								<c:when test="${not empty list}" >
 									<c:forEach var="vo" items="${list}">
 										<tr class="text-center" data-num="${vo.num}">
-											<td>${vo.num}</td>
-											<td class="text-left"><span class="goDetail">${vo.title}</span></td>
-											<td>${vo.author}</td>
-											<td>${vo.writeday}</td>
-											<td>${vo.readcnt}</td>
-										</tr>
+									   	<td>${vo.num}</td>
+									   <%-- <td class="text-left"><span class="goDetail">${vo.title}</span></td> --%> 
+									   <td class="text-left">
+										   <c:if test="${vo.repStep>0}"><%-- 답변글이면 --%>
+										   		<c:forEach begin="1" end="${vo.repIndent}"><%-- 답변의 계층번호에 따라 공백설정(기본값 공백3칸)--%>
+													&nbsp;&nbsp;&nbsp;
+						   						</c:forEach>
+						   						<img src="/image/re.gif" /><%-- 답변이미지 출력 --%>
+						   					</c:if>
+									   		<span class="goDetail">${vo.title}</span>
+									   </td>
+									   <td>${vo.author}</td>
+									   <td>${vo.writeday}</td>
+									   <td>${vo.readcnt}</td>
+									</tr>
 									</c:forEach>
 								</c:when>
 								<c:otherwise>
@@ -65,7 +74,7 @@
 										<td colspan="5" class="text-center">등록된 게시물이 존재하지 않습니다.</td>
 									</tr>
 								</c:otherwise>
-							</c:choose>
+						</c:choose>	
 						</tbody>
 					</table>
 				</div>

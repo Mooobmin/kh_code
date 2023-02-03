@@ -31,8 +31,16 @@ public class JoinDAO {
 		try {
 			conn = getConnection();
 			StringBuffer query = new StringBuffer();
-			query.append("select id, passwd, name, gender, tel, ");
-			query.append("to_char(regdate, 'YYYY-MM-DD') regdate from jointable");
+			/*
+			 * query.append("select id, passwd, name, gender, tel, ");
+			 * query.append("to_char(regdate, 'YYYY-MM-DD') regdate from jointable");
+			 */
+			query.append("select regexp_replace(id, '.', '*', 4) as id ");
+			query.append(",regexp_replace(name, '.', '*', 2, 1) as name ");
+			query.append(", gender");
+			query.append(",regexp_replace(tel, '(\\d{3})\\-(\\d{3,4})\\-(\\d{4})','\\1-****-\\3') as tel ");
+			query.append(",to_char(regdate, 'YYYY-mm-dd hh24:mi:ss') regdate ");
+			query.append("from jointable");
 			
 			pstmt = conn.prepareStatement(query.toString());
 			rs = pstmt.executeQuery();
@@ -40,7 +48,7 @@ public class JoinDAO {
 			while(rs.next()) {
 				JoinVO data = new JoinVO();
 				data.setId(rs.getString("id"));
-				data.setPasswd(rs.getString("passwd"));
+				//data.setPasswd(rs.getString("passwd"));
 				data.setName(rs.getString("name"));
 				data.setGender(rs.getString("gender"));
 				data.setTel(rs.getString("tel"));
@@ -68,9 +76,11 @@ public class JoinDAO {
 		try {
 			conn = getConnection();
 			StringBuffer query = new StringBuffer();
-			query.append("select id, passwd, name, gender, tel, ");
-			query.append("to_char(regdate,'YYYY-MM-DD HH24:MI:SS') regdate ");
-			query.append(" from jointable where id = ? ");
+			
+			 query.append("select id, passwd, name, gender, tel, ");
+			 query.append("to_char(regdate,'YYYY-MM-DD HH24:MI:SS') regdate ");
+			 query.append(" from jointable where id = ? ");
+
 			
 			pstmt = conn.prepareStatement(query.toString());
 			pstmt.setString(1, id);

@@ -2,7 +2,7 @@ package com.spring.polymorphism;
 
 public class LgTV implements TV{
 	public void powerOn() {
-		System.out.println("LgTV --- 전원을 킨다.");
+		System.out.println("LgTV --- 전원을 켠다.");
 	}
 	
 	public void powerOff() {

@@ -30,14 +30,23 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
-	<servlet>
-		<servlet-name>hello</servlet-name>
-		<servlet-class>com.spring.example.HelloServlet</servlet-class>
-	</servlet>
+	<!-- ==================한글 처리 설정================== -->
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>utf-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
 	
-	<servlet-mapping>
-		<servlet-name>hello</servlet-name>
-		<url-pattern>/hello.html</url-pattern>
-	</servlet-mapping>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 
 </web-app>

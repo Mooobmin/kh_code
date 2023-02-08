@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- <bean id="tv" class="com.spring.polymorphism.LgTV"/> -->
+	<!-- <bean id="tv" class="com.spring.polymorphism.SamsungTV"> -->
+		<!--  init-method="initMethod" destroy-method="destroyMethod"
+			  scope="singleton" lazy-init="true"-->
+			  
+			  
+<!-- 	<bean id="tv" class="com.spring.polymorphism.SamsungTV"
+			p:speaker-ref="sony" p:price="55000">			  
+	</bean>
+
+	<bean id="sony" class="com.spring.polymorphism.SonySpeaker"></bean>
+	<bean id="apple" class="com.spring.polymorphism.AppleSpeaker"></bean> -->
+	
+	<bean id="collectionBean" class="com.spring.injection.CollectionBean">
+		<property name="addressList">
+			<props>
+				<prop key="홍길동">서울시 강남구 역삼동</prop>
+				<prop key="김철수">서울시 영등포구 당산6가</prop>
+			</props>			
+		</property>	
+	</bean>
+	
+</beans>

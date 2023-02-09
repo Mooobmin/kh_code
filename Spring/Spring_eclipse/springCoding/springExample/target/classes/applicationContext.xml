@@ -6,7 +6,8 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
-	<!-- <bean id="tv" class="com.spring.polymorphism.LgTV"/> -->
+	<bean id="tv" class="com.spring.polymorphism.LgTV"/>
+	
 	<!-- <bean id="tv" class="com.spring.polymorphism.SamsungTV"> -->
 		<!--  init-method="initMethod" destroy-method="destroyMethod"
 			  scope="singleton" lazy-init="true"-->
@@ -16,7 +17,7 @@
 			p:speaker-ref="sony" p:price="55000">			  
 	</bean>
 
-	<bean id="sony" class="com.spring.polymorphism.SonySpeaker"></bean>
+	<bean id="sony" class="com.spring.polymorphism.SonySpeaker"></bean>	
 	<bean id="apple" class="com.spring.polymorphism.AppleSpeaker"></bean> -->
 	
 	<bean id="collectionBean" class="com.spring.injection.CollectionBean">
@@ -27,5 +28,7 @@
 			</props>			
 		</property>	
 	</bean>
+	
+	<context:component-scan base-package="com.spring.polymorphism"></context:component-scan>
 	
 </beans>

@@ -91,8 +91,9 @@
 					<artifactId>jmxri</artifactId>
 				</exclusion>
 			</exclusions>
+			<!-- <scope>runtime</scope> -->
 		</dependency>
-		<!-- <scope>runtime</scope> -->
+
 		<!-- @Inject -->
 		<dependency>
 			<groupId>javax.inject</groupId>

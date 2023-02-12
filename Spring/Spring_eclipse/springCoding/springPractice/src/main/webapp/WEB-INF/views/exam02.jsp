@@ -9,11 +9,11 @@
 		
 		<title>exam02 문서</title>
 		
-		<link rel="shortcut icon" href="../image/icon.png" />
-		<link rel="apple-touch-icon" href="../image/icon.png" />
+		<link rel="shortcut icon" href="/resources/image/icon.png" />
+		<link rel="apple-touch-icon" href="/resources/image/icon.png" />
 		
 		<!--[if lt IE 9]>
-		<script src="../js/html5shiv.js"></script>
+		<script src="/resources/js/html5shiv.js"></script>
 		<![endif]-->	
 	</head>
 	<body>

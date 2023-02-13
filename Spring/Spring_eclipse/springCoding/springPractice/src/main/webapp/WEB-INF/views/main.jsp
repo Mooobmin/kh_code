@@ -69,6 +69,51 @@
 					$("#exam03Form").submit();
 				});
 				
+				$("#jsonBtn").click(function(){
+					$.ajax({
+						url : "/sample/getExample2", //전송 url
+						type : "get",				 //전송시 method 방식
+						dataType : "json",
+						error : function(xhr, textStatus, errorThrown){ //실행시 오류가 발생하였을 경우
+							alert(textStatus + "(HTTP -" + xhr.status + " / " + errorThrown + ")");
+							//alert("잠시 후에 다시 접근해주세요.");	
+						},
+						success : function(resultData){ //정상적으로 실행되었을 경우
+							let no = resultData.no;
+							let name = resultData.name;
+							let phone = resultData.phone;
+							
+							let noLi = $("<li>").html(no);
+							let nameLi = $("<li>").html(name);
+							let phoneLi = $("<li>").html(phone);
+							
+							$("#dataArea").append(noLi).append(nameLi).append(phoneLi);
+						}
+					});
+				});
+				
+				$("#jsonListBtn").click(function(){
+					$("#list").css("display", "block");
+					$("listData").html("");
+					
+					$.getJSON('/sample/getList', function(data){
+						$(data).each(function(){
+							let no = this.no;
+							let name = this.name;
+							let phone = this.phone;			
+
+							let noTd = $("<td>").html(no);
+							let nameTd = $("<td>").html(name);
+							let phoneTd = $("<td>").html(phone);
+							
+							let tr = $("<tr>").append(noTd).append(nameTd).append(phoneTd);
+							$("#listData").append(tr);
+						});
+					}).fail(function(xhr, status, errorThrown){
+						alert(textStatus + "(HTTP -" + xhr.status + " / " + errorThrown + ")");
+					});
+				});
+				
 			});
 		</script>
 	</head>
@@ -168,7 +213,45 @@
 					</div>
 					<button type="button" id="exam03Btn" class="btn btn-success">exam03Btn 예제 확인</button>
 				</form>		
-				<hr />							
+				<hr />
+			<h5>XML / JSON값 요청 예제</h5>
+				<dl class="dl-horizontal">
+					<dt>데이터로만 반환(단순 문자열)&nbsp;</dt>
+					<dd><a href="http://localhost:8080/sample/getText">getText</a></dd>
+					
+					<dt>데이터로만 반환(xml)&nbsp;</dt>
+					<dd><a href="http://localhost:8080/sample/getExample">getExample</a></dd>
+					
+					<dt>데이터로만 반환(json-1)</dt>
+					<dd><a href="http://localhost:8080/sample/getExample2">getExample2</a></dd>
+					
+					<dt>데이터로만 반환(json-2)</dt>
+					<dd><a href="http://localhost:8080/sample/getExample3">getExample3</a></dd>
+					
+					<dt>데이터로만 반환(list)</dt>
+					<dd><a href="http://localhost:8080/sample/getList">getList</a></dd>
+
+	                <dt>get 방식와 post 방식</dt>
+					<dd><a href="http://localhost:8080/sample/examMethod">입력화면 요청</a></dd>					
+				</dl>							
+				
+			<h5>Ajax 요청</h5>
+				<button type="button" id="jsonBtn" class="btn btn-success">json 데이터 요청</button>
+				<ul id="dataArea" class="list-inline"></ul>
+				
+				<button type="button" id="jsonListBtn" class="btn btn-success">List 데이터 요청</button>
+				<div class="row col-sm-6" id="list">
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>번호</th>
+								<th>이름</th>
+								<th>핸드폰</th>
+							</tr>
+						</thead>
+						<tbody id="listData"></tbody>
+					</table>
+				</div>
 		</div> 
 	</body>
 </html>

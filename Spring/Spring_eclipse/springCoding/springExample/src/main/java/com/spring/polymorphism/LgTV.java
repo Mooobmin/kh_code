@@ -44,7 +44,6 @@ public class LgTV implements TV{
 	/*lombok으로 설정자 생성하여 의존성 주입*/
 	@Setter(onMethod_=@Autowired) private Speaker speaker;
 	
-	
 	public LgTV() {
 		System.out.println("===> LgTV 객체 생성됨");
 	}

@@ -1,5 +1,8 @@
 package com.spring.example.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.example.domain.SampleDTO;
+import com.spring.example.domain.SampleDTOList;
 
 import lombok.extern.log4j.Log4j;
-
 
 
 @Controller
@@ -50,11 +53,43 @@ public class SampleController {
 	}
 	/*요청방법 : http://localhost:8080/sample/exam02?name=홍길동&age=25*/
 	@GetMapping("/exam02")
-	public String exam02(@ModelAttribute SampleDTO sampleDTO/*, Model model*/) {
+	public String exam02(@ModelAttribute SampleDTO sampleDTO, Model model) {
 		log.info("" + sampleDTO);
 		
-		/*model.addAttribute("dto", dto);*/
+		model.addAttribute("dto", sampleDTO);
 		return "exam02"; // /WEB-INF/views/exam02.jsp를 의미
 	}
-
+	
+	@GetMapping("/exam02List")
+	public String exam02List(@RequestParam("language") ArrayList<String> language, Model model) {
+		log.info("language : " + language.toString());
+		
+		for(String lang : language) {
+			log.info("language : " + lang);
+		}
+		model.addAttribute("language", language);
+		return "exam02List"; // /WEB-INF/views/exam02List.jsp를 의미
+	}
+	
+	@GetMapping("/exam02Array")
+	public String exam02Array(@RequestParam("hobby") String[] hobby, Model model) {
+		log.info("Array hobby : " + Arrays.toString(hobby));
+		
+		model.addAttribute("hobby", hobby);
+		return "exam02Array"; // /WEB-INF/views/exam02Array.jsp를 의미
+	}	
+	
+	@GetMapping("/exam02Bean")
+	public String exam02Bean(SampleDTOList list) {
+		log.info("list dtoList : " + list);
+				
+		return "exam02Bean"; // /WEB-INF/views/exam02Bean.jsp를 의미
+	}		
+	@GetMapping("/exam03")
+	public String exam03(SampleDTO dto, @ModelAttribute("number") int number) {
+		log.info("dto : " + dto);
+		log.info("number : " + number);
+		
+		return "sample/exam03";
+	}
 }

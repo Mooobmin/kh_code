@@ -8,12 +8,19 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	
 	 <!-- 라이브러리 이용으로 설정-->
-	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="oracle.jdbc.OracleDriver" />
-		<property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521/xepdb1" />
+	<!-- <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="jdbcUrl" value="jdbc:log4jdbc:thin:@localhost:1521/xepdb1" />
 		<property name="username" value="javauser" />
 		<property name="password" value="java1234" />
-	</bean> 
+	</bean> -->
+	 
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
+		<property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521/xepdb1" />
+		<property name="username" value="javauser" />
+		<property name="password" value="java1234" />
+	</bean> 	
 	
 	<!-- 라이브러리 이용으로 dao 로그 처리 -->
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">

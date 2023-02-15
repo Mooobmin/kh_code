@@ -20,8 +20,8 @@
 		<beans:property name="prefix" value="/WEB-INF/views/" />
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
-	
-	<context:component-scan base-package="com.spring.example.controller" />
+	<!-- 매핑주소에서 * 하나는 파일명을 뜻하고, ** 두개는 어떤것이 와도 관계가 없다 -->
+	<context:component-scan base-package="com.spring.example.**" />
 	
 	
 	

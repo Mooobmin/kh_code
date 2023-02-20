@@ -34,4 +34,17 @@
 		from spring_board
 		where b_num = #{b_num}
 	</select>
+	
+	<!-- 게시물 수정 -->
+	<update id="boardUpdate" parameterType="board">
+		/* Board - boardUpdate*/
+		update spring_board
+		set b_title = #{b_title},
+			b_content = #{b_content},
+			b_date = sysdate
+			<if test="b_pwd != null">
+				, b_pwd = #{b_pwd}
+			</if>
+			where b_num = #{b_num}
+	</update>
 </mapper>

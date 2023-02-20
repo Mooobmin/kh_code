@@ -13,4 +13,8 @@ public interface BoardDao {
 	
 	//게시물 상세 페이지
 	public BoardVO boardDetail(BoardVO board);
+	
+	//글 수정 페이지
+	public int boardUpdate(BoardVO board);
+	
 }

@@ -11,4 +11,8 @@ public interface BoardService {
 	public int boardInsert(BoardVO board);
 	
 	public BoardVO boardDetail(BoardVO board);
+	
+	public BoardVO updateForm(BoardVO board);
+	
+	public int boardUpdate(BoardVO board);
 }

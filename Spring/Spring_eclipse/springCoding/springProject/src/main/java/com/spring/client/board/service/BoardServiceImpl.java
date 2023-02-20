@@ -43,4 +43,20 @@ public class BoardServiceImpl implements BoardService{
 		}
 		return detail;
 	}
+	
+	//글 수정
+	@Override
+	public BoardVO updateForm(BoardVO board) {
+		BoardVO updateData = null;
+		updateData = boardDAO.boardDetail(board);
+		return updateData;
+	}
+	
+	//글 수정 구현
+	@Override
+	public int boardUpdate(BoardVO board) {
+		int result = 0;
+		result = boardDAO.boardUpdate(board);
+		return result;
+	}
 }
